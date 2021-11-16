@@ -3,13 +3,11 @@ extern crate rocket;
 
 use rocket::fs::FileServer;
 use rocket_dyn_templates::Template;
-use std::collections::HashMap;
+use std::collections::BTreeMap;
 
 #[get("/")]
 fn home() -> Template {
-    let mut context: HashMap<&str, &str> = HashMap::new();
-    context.insert("title", "Home");
-
+    let mut context = BTreeMap::from([("title", "Home")]);
     Template::render("home", context)
 }
 
