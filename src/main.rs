@@ -7,7 +7,9 @@ use std::collections::HashMap;
 
 #[get("/")]
 fn home() -> Template {
-    let mut context: HashMap<String, String> = HashMap::new();
+    let mut context: HashMap<&str, &str> = HashMap::new();
+    context.insert("title", "Home");
+
     Template::render("home", context)
 }
 

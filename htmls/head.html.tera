@@ -1,0 +1,15 @@
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{ title }}</title>
+
+<link rel="stylesheet" href="/css/halfmoon.min.css" media="screen" />
+<link rel="stylesheet" href="/css/halfmoon-variables.min.css" media="screen" />
+<link rel="stylesheet" type="text/css" href="/css/main.css"  media="screen" />
+<link rel="stylesheet" type="text/css" href="/css/font.css" media="screen" />
+<link rel="stylesheet" type="text/css" href="/css/back.css" media="screen" />
+
+<script type="text/javascript" src="/js/halfmoon.min.js"></script>
+<script type="text/javascript" src="/js/halfmoon-module.js"></script>
+<script type="text/javascript" src="/js/animation.js"></script>
+<script src="https://kit.fontawesome.com/9d65ab45e3.js" crossorigin="anonymous"></script>
