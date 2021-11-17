@@ -1,13 +1,15 @@
+mod database;
+
 #[macro_use]
 extern crate rocket;
 
 use rocket::fs::FileServer;
 use rocket_dyn_templates::Template;
-use std::collections::BTreeMap;
+use std::collections::HashMap;
 
 #[get("/")]
 fn home() -> Template {
-    let mut context = BTreeMap::from([("title", "Home")]);
+    let context = HashMap::from([("title", "Home")]);
     Template::render("home", context)
 }
 

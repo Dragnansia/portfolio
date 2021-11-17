@@ -8,7 +8,7 @@
         <img src="/img/404.png" alt="404 Error" class="m-5 w-500 p-0" />
         <div></div>
         <div class="d-flex justify-content-center">
-          Error message
+          404 - Page not found
         </div>
       </div>
     </section>
