@@ -1,6 +1,8 @@
 mod database;
 mod html;
 mod http_error;
+mod lang;
+mod project;
 
 #[macro_use]
 extern crate rocket;
