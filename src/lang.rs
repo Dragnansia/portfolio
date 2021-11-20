@@ -2,23 +2,21 @@ use std::collections::HashMap;
 
 #[derive(Clone, Debug)]
 pub struct Language {
-    data: HashMap<&'static str, Vec<&'static str>>,
+    pub name: &'static str,
+    pub data: HashMap<String, String>,
 }
 
 impl Language {
-    pub fn new() -> Self {
+    pub fn new(name: &'static str) -> Self {
         Self {
+            name,
             data: HashMap::new(),
         }
     }
 
-    pub fn add_lg(&mut self, lg: &'static str, data: Vec<&'static str>) -> &Self {
-        self.data.insert(lg, data);
-        self
-    }
-
-    pub fn add_many_lg(&mut self, lgs: &[(&'static str, Vec<&'static str>)]) -> &Self {
-        self.data.extend(lgs.iter().map(|lg| lg.clone()));
+    pub fn insert_with_format(&mut self, k: &str, v: &str) -> &Self {
+        self.data
+            .insert(k.to_string(), format!("<lg id=\"{}\">{}</lg>", k, v));
         self
     }
 }
