@@ -1,15 +1,16 @@
+use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 
-#[derive(Clone, Debug)]
+#[derive(Clone, Debug, Deserialize, Serialize)]
 pub struct Language {
-    pub name: &'static str,
+    pub name: String,
     pub data: HashMap<String, String>,
 }
 
 impl Language {
-    pub fn new(name: &'static str) -> Self {
+    pub fn new(name: &str) -> Self {
         Self {
-            name,
+            name: name.to_string(),
             data: HashMap::new(),
         }
     }
