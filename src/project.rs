@@ -1,4 +1,6 @@
 use crate::lang::Language;
+use mongodb::Database;
+use rocket::futures::TryStreamExt;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, Deserialize, Serialize)]
@@ -33,4 +35,13 @@ impl Project {
             languages,
         }
     }
+}
+
+// TODO: get project and languages and need to remove typing
+pub async fn init_database_project(database: &Database) -> Option<Vec<Project>> {
+    let collections = database.collection::<Project>("Projects");
+    let lists = collections.find(None, None).await.ok()?;
+
+    let projects = lists.try_collect().await.ok()?;
+    Some(projects)
 }
