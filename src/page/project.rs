@@ -1,6 +1,7 @@
-use crate::lang::Language;
+use crate::{html::render_html_file, lang::Language};
 use mongodb::Database;
-use rocket::futures::TryStreamExt;
+use rocket::{futures::TryStreamExt, response::Redirect, State};
+use rocket_dyn_templates::Template;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, Deserialize, Serialize)]
@@ -37,11 +38,23 @@ impl Project {
     }
 }
 
-// TODO: get project and languages and need to remove typing
 pub async fn init_database_project(database: &Database) -> Option<Vec<Project>> {
     let collections = database.collection::<Project>("Projects");
     let lists = collections.find(None, None).await.ok()?;
 
     let projects = lists.try_collect().await.ok()?;
     Some(projects)
+}
+
+#[get("/project/<name>")]
+pub fn proj(projects: &State<Vec<Project>>, name: &str) -> Result<Template, Redirect> {
+    // Todo: Render page 404 or a new page for project not found ?
+    // check for the better options but actually just redirect to 404 page
+    let res = projects.iter().rfind(|p| p.title == name);
+    if res.is_none() {
+        Err(Redirect::to("/404"))
+    } else {
+        let proj = res.unwrap().clone();
+        Ok(render_html_file("proj", Some(proj)))
+    }
 }
