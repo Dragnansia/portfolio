@@ -1,15 +1,12 @@
 use rocket_dyn_templates::Template;
-use std::collections::HashMap;
+use serde::Serialize;
 
-pub fn render_html_file(html_file: &'static str, args: Option<&[(&str, &str)]>) -> Template {
-    let mut context: HashMap<&str, &str> = HashMap::new();
-    if !args.is_none() {
-        context.extend(args.unwrap().iter().map(|arg| arg.clone()));
+pub fn render_html_file<C>(html_file: &'static str, args: Option<C>) -> Template
+where
+    C: Serialize,
+{
+    match args {
+        Some(args) => Template::render(html_file, args),
+        None => Template::render(html_file, &[("Error", "No arguments for render")]),
     }
-
-    for core in &context {
-        println!("{:?}", core);
-    }
-
-    Template::render(html_file, context)
 }
