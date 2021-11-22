@@ -20,7 +20,7 @@ impl Image {
 
 #[derive(Clone, Debug, Deserialize, Serialize)]
 pub struct Project {
-    pub name: String,
+    pub title: String,
     pub desc: String,
     pub images: Vec<Image>,
     pub languages: Vec<Language>,
@@ -29,7 +29,7 @@ pub struct Project {
 impl Project {
     pub fn new(name: &str, desc: &str, images: Vec<Image>, languages: Vec<Language>) -> Self {
         Self {
-            name: name.to_string(),
+            title: name.to_string(),
             desc: desc.to_string(),
             images,
             languages,
