@@ -1,7 +1,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{{ title }}</title>
+<title lg="title">{{ txt.title }}</title>
 
 <link rel="stylesheet" type="text/css" href="/css/main.css"  media="screen" />
 <link rel="stylesheet" type="text/css" href="/css/font.css" media="screen" />
@@ -10,6 +10,7 @@
 <link href="https://cdn.jsdelivr.net/npm/halfmoon@1.1.1/css/halfmoon-variables.min.css" rel="stylesheet" />
 
 <script type="text/javascript" src="/js/animation.js"></script>
+<script type="text/javascript" src="/js/lang.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/halfmoon@1.1.1/js/halfmoon.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/halfmoon@1.1.1/js/halfmoon-module.min.js"></script>
 <script src="https://kit.fontawesome.com/9d65ab45e3.js" crossorigin="anonymous"></script>

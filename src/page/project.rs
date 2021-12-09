@@ -1,8 +1,13 @@
 use crate::{html::render_html_file, lang::Language};
-use mongodb::Database;
-use rocket::{futures::TryStreamExt, response::Redirect, State};
+use mongodb::{bson::doc, Collection, Database};
+use rocket::{
+    futures::{TryFutureExt, TryStreamExt},
+    response::Redirect,
+    State,
+};
 use rocket_dyn_templates::Template;
 use serde::{Deserialize, Serialize};
+use std::collections::HashMap;
 
 #[derive(Clone, Debug, Deserialize, Serialize)]
 pub struct Image {
@@ -28,33 +33,53 @@ pub struct Project {
 }
 
 impl Project {
-    pub fn new(name: &str, desc: &str, images: Vec<Image>, languages: Vec<Language>) -> Self {
+    pub fn new(title: String, desc: String, images: Vec<Image>, languages: Vec<Language>) -> Self {
         Self {
-            title: name.to_string(),
-            desc: desc.to_string(),
+            title,
+            desc,
             images,
             languages,
         }
     }
+
+    pub fn language(&self, lang: &str) -> Option<&HashMap<String, String>> {
+        let lg = self.languages.iter().find(|lg| lg.id == lang);
+        match lg {
+            Some(l) => Some(l.get_data()),
+            None => None,
+        }
+    }
 }
 
-pub async fn init_database_project(database: &Database) -> Option<Vec<Project>> {
-    let collections = database.collection::<Project>("Projects");
-    let lists = collections.find(None, None).await.ok()?;
-
-    let projects = lists.try_collect().await.ok()?;
-    Some(projects)
+pub async fn find_project(collection: Collection<Project>, project_name: &str) -> Option<Project> {
+    let res = collection
+        .find(doc! {"title": project_name}, None)
+        .await
+        .ok()?;
+    let collect: Vec<Project> = res.try_collect().await.ok()?;
+    Some(collect.first().unwrap().clone())
 }
 
-#[get("/project/<name>")]
-pub fn proj(projects: &State<Vec<Project>>, name: &str) -> Result<Template, Redirect> {
-    // Todo: Render page 404 or a new page for project not found ?
-    // check for the better options but actually just redirect to 404 page
-    let res = projects.iter().rfind(|p| p.title == name);
-    if res.is_none() {
+pub async fn all_projects(collection: Collection<Project>) -> Option<Vec<Project>> {
+    let res = collection.find(None, None).await.ok()?;
+    let collect: Option<Vec<Project>> = res.try_collect().await.ok();
+    collect
+}
+
+#[get("/project/<name>?<lang>")]
+pub async fn proj(
+    db: &State<Database>,
+    name: &str,
+    lang: Option<&str>,
+) -> Result<Template, Redirect> {
+    let proj = find_project(db.collection::<Project>("Projects"), name).await;
+
+    if proj.is_none() {
         Err(Redirect::to("/404"))
     } else {
-        let proj = res.unwrap().clone();
-        Ok(render_html_file("proj", Some(proj)))
+        let p = proj.unwrap();
+        let l = p.language(lang.unwrap_or("fr"));
+
+        Ok(render_html_file("proj", Some(p)))
     }
 }

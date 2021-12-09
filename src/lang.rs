@@ -3,15 +3,16 @@ use std::collections::HashMap;
 
 #[derive(Clone, Debug, Deserialize, Serialize)]
 pub struct Language {
-    pub name: String,
+    pub id: String,
     pub data: HashMap<String, String>,
 }
 
 impl Language {
-    pub fn new(name: &str, data: HashMap<String, String>) -> Self {
-        Self {
-            name: name.to_string(),
-            data,
-        }
+    pub fn new(id: String, data: HashMap<String, String>) -> Self {
+        Self { id, data }
+    }
+
+    pub fn get_data(&self) -> &HashMap<String, String> {
+        &self.data
     }
 }
