@@ -6,9 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title lg="title">Romuald Aucouturier</title>
 
-        <link rel="stylesheet" type="text/css" href="/css/main.css"  media="screen" />
-        <link rel="stylesheet" type="text/css" href="/css/font.css" media="screen" />
-        <link rel="stylesheet" type="text/css" href="/css/back.css" media="screen" />
+        <link data-trunk rel="sass" href="index.scss" />
         <link href="https://cdn.jsdelivr.net/npm/halfmoon@1.1.1/css/halfmoon.min.css" rel="stylesheet" />
         <link href="https://cdn.jsdelivr.net/npm/halfmoon@1.1.1/css/halfmoon-variables.min.css" rel="stylesheet" />
 
@@ -20,12 +18,5 @@
     </head>
 
     <body class="dark-mode">
-    	<div class="page-wrapper with-navbar with-sidebar with-navbar-fixed-bottom" data-sidebar-type="overlayed-all">
-    		{% include "navbar" %}
-
-    		{% block content %}{% endblock content %}
-
-    		{% include "sidebar" %}
-    	</div>
     </body>
 </html>

@@ -1,3 +1,44 @@
+@import url(https://fonts.googleapis.com/css?family=Exo:100);
+
+:root {
+    --navbar-height: 0px;
+}
+
+* {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    overflow-y: scroll;
+}
+
+body {
+    font: 900 16px exo, ubuntu, "segoe ui", helvetica, arial, sans-serif;
+
+    height: 100vh;
+    width: 100vw;
+    margin: 0;
+
+    .snap-container {
+        width: 100%;
+        height: 100%    ;
+
+        position: relative;
+        top: 0;
+
+        scroll-snap-type: y mandatory;
+        overflow-y: scroll;
+
+        section {
+            flex: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+            scroll-snap-align: start;
+        }
+    }
+}
+
 .context {
     width: 100%;
     position: absolute;
@@ -11,17 +52,17 @@
     height: 100%;
     overflow: hidden;
     pointer-events: none;
-}
 
-.circles li {
-    position: absolute;
-    display: block;
-    list-style: none;
-    width: 20px;
-    height: 20px;
-    background: rgba(72, 72, 72, 0.2);
-    animation: animate 25s linear infinite;
-    bottom: -150px;
+    li {
+        position: absolute;
+        display: block;
+        list-style: none;
+        width: 20px;
+        height: 20px;
+        background: rgba(72, 72, 72, 0.2);
+        animation: animate 25s linear infinite;
+        bottom: -150px;
+    }
 }
 
 .dark-mode .circles li {
@@ -118,3 +159,4 @@
         border-radius: 50%;
     }
 }
+
