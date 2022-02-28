@@ -1,35 +1,35 @@
-let languagesElements = [], currentLang = "fr";
+let languagesElements = [],
+  currentLang = "fr";
 
 function getAllElementWithAttribute(attribute) {
-    let matchingElement = [];
-    let elements = document.getElementsByTagName("*");
-    for (let i = 0; i < elements.length; i++) {
-        let el = elements[i];
-        if (el.getAttribute(attribute) !== null) {
-            matchingElement.push(el);
-        }
+  let matchingElement = [];
+  let elements = document.getElementsByTagName("*");
+  for (let i = 0; i < elements.length; i++) {
+    let el = elements[i];
+    if (el.getAttribute(attribute) !== null) {
+      matchingElement.push(el);
     }
+  }
 
-    return matchingElement;
+  return matchingElement;
 }
 
 function findCurrentLang() {
-    currentLang = "fr";
+  currentLang = "fr";
 }
 
 function currentLanguage() {
-    return currentLang;
+  return currentLang;
 }
 
-// Todo: get new language with api and change every languages elements
 function updateLanguage(newLang) {
-    if (newLang !== currentLang) {
-        
-    }
+  if (newLang !== currentLang) {
+    // Todo: get new language with api and change every languages elements
+  }
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-    languagesElements = getAllElementWithAttribute('lg');
-    findCurrentLang();
-    console.log(languagesElements);
-})
+  languagesElements = getAllElementWithAttribute("lg");
+  findCurrentLang();
+  console.log(languagesElements);
+});

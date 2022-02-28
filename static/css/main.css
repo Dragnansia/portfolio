@@ -3,6 +3,7 @@ body {
   width: 100vw;
   margin: 0;
 }
+
 body .snap-container {
   width: 100%;
   height: calc(100% - var(--navbar-height));
@@ -11,6 +12,7 @@ body .snap-container {
   scroll-snap-type: y mandatory;
   overflow-y: scroll;
 }
+
 body .snap-container section {
   flex: none;
   display: flex;
@@ -20,5 +22,3 @@ body .snap-container section {
   height: 100%;
   scroll-snap-align: start;
 }
-
-/*# sourceMappingURL=main.css.map */
