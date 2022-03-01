@@ -3,8 +3,7 @@ mod component;
 mod data;
 mod page;
 
-use component::navbar::NavBar;
-use page::home::Home;
+use page::{error, home::Home, project};
 use yew::prelude::*;
 use yew_router::prelude::*;
 
@@ -44,8 +43,8 @@ impl Component for App {
 fn switch(routes: &Route) -> Html {
     match routes {
         Route::Home => html! { <Home /> },
-        Route::Project { id } => todo!(),
-        Route::NotFound => todo!(),
+        Route::Project { id } => project::view(*id),
+        Route::NotFound => error::err_404(),
     }
 }
 

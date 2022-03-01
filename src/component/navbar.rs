@@ -1,6 +1,5 @@
-use yew::prelude::*;
-
 use crate::bindings;
+use yew::prelude::*;
 
 pub struct NavBar;
 impl Component for NavBar {

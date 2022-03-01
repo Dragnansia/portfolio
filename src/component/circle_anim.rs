@@ -8,11 +8,11 @@ impl Component for CircleAnim {
     type Message = ();
     type Properties = ();
 
-    fn create(ctx: &Context<Self>) -> Self {
+    fn create(_: &Context<Self>) -> Self {
         Self { count: 10 }
     }
 
-    fn view(&self, ctx: &Context<Self>) -> Html {
+    fn view(&self, _: &Context<Self>) -> Html {
         let circles = vec![html! { <li> </li> }; self.count as usize];
 
         html! {
