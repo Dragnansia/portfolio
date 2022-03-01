@@ -29,7 +29,7 @@ impl Component for Home {
                     { self.info() }
                 </section>
 
-                <section id="info">
+                <section id="information">
                     { self.description() }
                 </section>
 

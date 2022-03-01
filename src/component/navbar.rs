@@ -19,9 +19,9 @@ impl Component for NavBar {
             <nav class="navbar justify-content-between">
                 <div class="navbar-content">
                     <ul class="navbar-nav hidden-sm-and-down">
-                    <li class="nav-item">
-                        <p class="font-size-16">{ "Romuald Aucouturier" }</p>
-                    </li>
+                        <li class="nav-item">
+                            <p class="font-size-16">{ "Romuald Aucouturier" }</p>
+                        </li>
                     </ul>
                 </div>
 
@@ -30,13 +30,13 @@ impl Component for NavBar {
                 <div class="navbar-content">
                     <ul class="navbar-nav hidden-sm-and-down">
                         <li class="nav-item">
-                            <a href="#" onclick={ home } class="nav-link">{ "Home" }</a>
+                            <s onclick={ home } class="nav-link">{ "Accueil" }</s>
                         </li>
                         <li class="nav-item">
-                            <a href="#" onclick={ information } class="nav-link">{ "Infos" }</a>
+                            <s onclick={ information } class="nav-link">{ "À Propos de moi" }</s>
                         </li>
                         <li class="nav-item">
-                            <a href="#" onclick={ projects } class="nav-link">{ "Projects" }</a>
+                            <s onclick={ projects } class="nav-link">{ "Projets" }</s>
                         </li>
                     </ul>
                 </div>

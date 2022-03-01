@@ -1,4 +1,4 @@
-function moveTo(el) {
+export function moveTo(el) {
   el = document.getElementById(el);
   el.scrollIntoView({
     block: "end",
