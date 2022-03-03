@@ -17,29 +17,23 @@ impl Component for NavBar {
 
         html! {
             <nav class="navbar justify-content-between">
-                <div class="navbar-content">
+                <div class="navbar-content" />
+
+                <div class="navbar-brand">
                     <ul class="navbar-nav hidden-sm-and-down">
                         <li class="nav-item">
-                            <p class="font-size-16">{ "Romuald Aucouturier" }</p>
+                            <but onclick={ home } class="nav-link">{ "Accueil" }</but>
+                        </li>
+                        <li class="nav-item">
+                            <but onclick={ information } class="nav-link">{ "À Propos de moi" }</but>
+                        </li>
+                        <li class="nav-item">
+                            <but onclick={ projects } class="nav-link">{ "Projets" }</but>
                         </li>
                     </ul>
                 </div>
 
-                <div class="navbar-brand"></div>
-
-                <div class="navbar-content">
-                    <ul class="navbar-nav hidden-sm-and-down">
-                        <li class="nav-item">
-                            <s onclick={ home } class="nav-link">{ "Accueil" }</s>
-                        </li>
-                        <li class="nav-item">
-                            <s onclick={ information } class="nav-link">{ "À Propos de moi" }</s>
-                        </li>
-                        <li class="nav-item">
-                            <s onclick={ projects } class="nav-link">{ "Projets" }</s>
-                        </li>
-                    </ul>
-                </div>
+                <div class="navbar-content" />
             </nav>
         }
     }
