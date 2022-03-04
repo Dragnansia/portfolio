@@ -1,1 +1,1 @@
-web: .cargo/bin/trunk serve
+web: ~/.cargo/bin/trunk serve
