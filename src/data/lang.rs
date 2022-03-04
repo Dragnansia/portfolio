@@ -96,4 +96,17 @@ mod test {
 
         assert!(ldata.is_this_lang(1000, Language::French));
     }
+
+    #[test]
+    fn serialize() {
+        let ldata = LData {
+            id: 10,
+            data: HashMap::from([("A".into(), "B".into())]),
+            lang: Language::English,
+        };
+
+        let s = serde_json::to_string(&ldata).unwrap();
+
+        assert_eq!(s, r#"{"id":10,"data":{"A":"B"},"lang":"English"}"#);
+    }
 }
