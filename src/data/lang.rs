@@ -26,8 +26,8 @@ impl LData {
     }
 
     /// Return data from name
-    pub fn data(&self, name: &str) -> String {
-        self.data[name].clone()
+    pub fn data(&self, name: &str) -> Option<&String> {
+        self.data.get(name)
     }
 }
 
@@ -49,7 +49,7 @@ mod test {
             lang: Language::English,
         };
 
-        assert_eq!(l1.data("A"), "B");
+        assert_eq!(l1.data("A"), Some(&"B".into()));
     }
 
     #[test]
