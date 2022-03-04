@@ -1,1 +1,1 @@
-web: ./target/release/portfolio
+web: trunk serve
