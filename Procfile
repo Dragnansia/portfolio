@@ -1,1 +1,1 @@
-web: ./dist/index.html
+web: python -m http.server 8080 --directory dist
