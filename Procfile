@@ -1,1 +1,1 @@
-web: python -m http.server 8080 --directory dist
+web: python -m http.server 80 --directory dist
