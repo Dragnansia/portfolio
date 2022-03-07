@@ -5,7 +5,8 @@ mod page;
 
 use component::navbar::NavBar;
 use page::{error, home::Home, project};
-use wasm_bindgen::{prelude::wasm_bindgen, JsValue};
+use wasm_bindgen::prelude::wasm_bindgen;
+use wasm_logger::Config;
 use yew::prelude::*;
 use yew_router::prelude::*;
 
@@ -54,9 +55,7 @@ fn switch(routes: &Route) -> Html {
     }
 }
 
-#[wasm_bindgen]
-pub fn run_app() -> Result<(), JsValue> {
+fn main() {
+    wasm_logger::init(Config::default());
     yew::start_app::<App>();
-
-    Ok(())
 }
