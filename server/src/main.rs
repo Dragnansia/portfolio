@@ -21,10 +21,7 @@ async fn main() -> io::Result<()> {
     let db = match db_connection().await {
         Ok(db) => db,
         Err(error) => {
-            return Err(std::io::Error::new(
-                io::ErrorKind::Unsupported,
-                error.to_string(),
-            ));
+            return Err(std::io::Error::new(io::ErrorKind::Other, error.to_string()));
         }
     };
 
