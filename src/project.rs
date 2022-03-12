@@ -1,16 +1,30 @@
 use serde::{Deserialize, Serialize};
 
-#[derive(Deserialize, Serialize, Default, Debug)]
+#[derive(Debug, Deserialize, Serialize, Default, Clone)]
 pub struct Project {
     pub id: u64,
-    pub title: String,
+    pub name: String,
     pub description: String,
-    pub images: Vec<String>,
+    pub images: Vec<Image>,
+    pub links: Vec<String>,
+}
+
+#[derive(Debug, Deserialize, Serialize, Default, Clone)]
+pub struct Image {
+    pub url: String,
+    pub alt: String,
+}
+
+#[derive(Debug, Deserialize, Serialize, Default, Clone)]
+pub struct Links {
+    pub url: String,
+    pub icon: String,
+    pub name: String,
 }
 
 impl PartialEq for Project {
     fn eq(&self, other: &Self) -> bool {
-        self.id == other.id && self.title == other.title
+        self.id == other.id && self.name == other.name
     }
 }
 
@@ -22,13 +36,13 @@ mod test {
     fn compare() {
         let p1 = Project {
             id: 1000,
-            title: "P1".into(),
+            name: "P1".into(),
             ..Default::default()
         };
 
         let p2 = Project {
             id: 1001,
-            title: "P2".into(),
+            name: "P2".into(),
             ..Default::default()
         };
 
@@ -55,7 +69,7 @@ mod test {
     fn serialize() {
         let project = Project {
             id: 1000,
-            title: "Project".into(),
+            name: "Project".into(),
             ..Default::default()
         };
 

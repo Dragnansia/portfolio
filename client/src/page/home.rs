@@ -1,4 +1,5 @@
-use crate::{component::circle_anim::CircleAnim, data::project::Project};
+use crate::component::circle_anim::CircleAnim;
+use portfolio::project::Project;
 use yew::prelude::*;
 
 pub struct Home {
@@ -13,9 +14,9 @@ impl Component for Home {
         Self {
             projects: vec![Project {
                 id: 7868937628793,
-                title: "qsdfqsdfqsdf".into(),
+                name: "qsdfqsdfqsdf".into(),
                 description: "qsdfqsdfqsdf".into(),
-                images: vec![],
+                ..Default::default()
             }],
         }
     }
@@ -45,16 +46,16 @@ impl Home {
     fn projects(&self) -> Vec<Html> {
         self.projects.iter().map(|project| {
             let url = format!("/project/{}", project.id);
-            let title = project.title.clone();
+            let title = project.name.clone();
             let image = match project.images.get(0) {
                 Some(s) => s.clone(),
-                None => String::new()
+                None => Default::default()
             };
 
             html! {
                 <div class="d-flex flex-wrap justify-content-center">
                     <a href={ url } data-toggle="tooltip" data-title={ title } class="m-5 w-200 p-0">
-                        <img src={ image.clone() } class="img-fluid rounded" alt="" />
+                        <img src={ image.url.clone() } class="img-fluid rounded" alt="" />
                     </a>
                 </div>
             }

@@ -1,8 +1,13 @@
+pub mod api;
+
 use actix_files::Files;
 use actix_web::{App, HttpServer};
 use mongodb::{error::Error, options::ClientOptions, Client};
 use std::{env, io, sync::Mutex};
 
+/// Connect to mongodb database
+///
+/// Need to set `DB_URL` env variable to try connection
 async fn db_connection() -> Result<Client, Error> {
     let db_url = env::var("DB_URL").unwrap_or_default();
     let options = ClientOptions::parse(db_url).await?;
@@ -29,7 +34,7 @@ async fn main() -> io::Result<()> {
         App::new()
             .app_data(db.clone())
             .app_data(Mutex::new(0))
-            .service(Files::new("/", "./dist/").index_file("index.html"))
+            .service(Files::new("/", "./client/dist/").index_file("index.html"))
     })
     .bind((host, port))?
     .run()

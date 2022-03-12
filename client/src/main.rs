@@ -1,11 +1,9 @@
 mod bindings;
 mod component;
-mod data;
 mod page;
 
 use component::navbar::NavBar;
 use page::{error, home::Home, project};
-use wasm_bindgen::prelude::wasm_bindgen;
 use wasm_logger::Config;
 use yew::prelude::*;
 use yew_router::prelude::*;
@@ -22,8 +20,8 @@ pub enum Route {
     NotFound,
 }
 
-struct App;
-impl Component for App {
+struct Client;
+impl Component for Client {
     type Message = ();
     type Properties = ();
 
@@ -57,5 +55,5 @@ fn switch(routes: &Route) -> Html {
 
 fn main() {
     wasm_logger::init(Config::default());
-    yew::start_app::<App>();
+    yew::start_app::<Client>();
 }
