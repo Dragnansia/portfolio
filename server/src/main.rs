@@ -1,9 +1,10 @@
 pub mod api;
 
 use actix_files::Files;
-use actix_web::{App, HttpServer};
-use mongodb::{error::Error, options::ClientOptions, Client};
-use std::{env, io, sync::Mutex};
+use actix_web::{middleware, web::Data, App, HttpServer};
+use api::project::all_project;
+use mongodb::{error::Error, options::ClientOptions, Client, Database};
+use std::{env, io};
 
 /// Connect to mongodb database
 ///
@@ -15,8 +16,15 @@ async fn db_connection() -> Result<Client, Error> {
     Client::with_options(options)
 }
 
+pub struct AppState {
+    db: Database,
+}
+
 #[actix_web::main]
 async fn main() -> io::Result<()> {
+    std::env::set_var("RUST_LOG", "actix_web=info");
+    env_logger::init();
+
     let host = env::var("HOST").unwrap_or("0.0.0.0".into());
     let port = env::var("PORT")
         .unwrap_or("8000".into())
@@ -24,16 +32,18 @@ async fn main() -> io::Result<()> {
         .unwrap();
 
     let db = match db_connection().await {
-        Ok(db) => db,
+        Ok(db) => db.database("portfolio"),
         Err(error) => {
             return Err(std::io::Error::new(io::ErrorKind::Other, error.to_string()));
         }
     };
 
+    println!("Server start at port: {}", port);
     HttpServer::new(move || {
         App::new()
-            .app_data(db.clone())
-            .app_data(Mutex::new(0))
+            .wrap(middleware::Logger::default())
+            .app_data(Data::new(AppState { db: db.clone() }))
+            .service(all_project)
             .service(Files::new("/", "./client/dist/").index_file("index.html"))
     })
     .bind((host, port))?

@@ -13,7 +13,7 @@ pub enum Route {
     #[at("/")]
     Home,
 
-    #[at("project/:id")]
+    #[at("/project/:id")]
     Project { id: u64 },
 
     #[at("/404")]
@@ -41,6 +41,7 @@ impl Component for Client {
 }
 
 fn switch(routes: &Route) -> Html {
+    println!("fb gjsqgbsdfg");
     match routes {
         Route::Home => html! {
             <>
