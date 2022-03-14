@@ -42,7 +42,7 @@ pub fn view() -> Html {
             </section>
 
             <section id="projects">
-                // <ProjectsList projects={ (*projects).clone() } />
+                <ProjectsList projects={ (*projects).clone() } />
             </section>
         </div>
     }
@@ -64,9 +64,9 @@ fn projects(ProjectsListProps { projects }: &ProjectsListProps) -> Html {
             };
 
             html! {
-                <div class="d-flex flex-wrap justify-content-center">
-                    <a href={ url } data-toggle="tooltip" data-title={ title } class="m-5 w-200 p-0">
-                        <img src={ image.url.clone() } class="img-fluid rounded" alt="" />
+                <div class="d-flex flex-wrap justify-content-center" data-toggle="tooltip" data-title={ title } style="overflow: unset;">
+                    <a href={ url } class="m-5 w-200 p-0">
+                        <img class="img-fluid rounded" alt="" src={ image.url.clone() } />
                     </a>
                 </div>
             }
