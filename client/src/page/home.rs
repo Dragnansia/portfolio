@@ -12,7 +12,7 @@ pub fn view() -> Html {
         use_effect_with_deps(
             move |_| {
                 wasm_bindgen_futures::spawn_local(async move {
-                    let fetch_projects: Vec<Project> = Request::get("/projects")
+                    let fetch_projects: Vec<Project> = Request::get("/api/projects")
                         .send()
                         .await
                         .unwrap()

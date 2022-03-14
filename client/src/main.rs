@@ -41,7 +41,6 @@ impl Component for Client {
 }
 
 fn switch(routes: &Route) -> Html {
-    println!("fb gjsqgbsdfg");
     match routes {
         Route::Home => html! {
             <>

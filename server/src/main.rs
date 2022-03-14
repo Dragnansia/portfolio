@@ -2,7 +2,7 @@ pub mod api;
 
 use actix_files::Files;
 use actix_web::{middleware, web::Data, App, HttpServer};
-use api::project::all_project;
+use api::project::{all_project, project_info};
 use mongodb::{error::Error, options::ClientOptions, Client, Database};
 use std::{env, io};
 
@@ -44,6 +44,7 @@ async fn main() -> io::Result<()> {
             .wrap(middleware::Logger::default())
             .app_data(Data::new(AppState { db: db.clone() }))
             .service(all_project)
+            .service(project_info)
             .service(Files::new("/", "./client/dist/").index_file("index.html"))
     })
     .bind((host, port))?
