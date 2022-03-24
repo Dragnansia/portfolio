@@ -17,7 +17,19 @@ impl Component for Home {
     type Message = Message;
     type Properties = ();
 
-    fn create(_: &Context<Self>) -> Self {
+    fn create(ctx: &Context<Self>) -> Self {
+        ctx.link().send_future(async {
+            let fetch_projects: Vec<Project> = Request::get("/api/projects")
+                .send()
+                .await
+                .unwrap()
+                .json()
+                .await
+                .unwrap();
+
+            Message::ProjectList(fetch_projects)
+        });
+
         Self {
             projects: vec![],
             project_focus: None,
