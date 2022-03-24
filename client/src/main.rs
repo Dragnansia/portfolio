@@ -3,22 +3,9 @@ mod component;
 mod page;
 
 use component::navbar::NavBar;
-use page::{error, home::Home, project};
+use page::home::Home;
 use wasm_logger::Config;
 use yew::prelude::*;
-use yew_router::prelude::*;
-
-#[derive(Debug, Clone, Routable, PartialEq)]
-pub enum Route {
-    #[at("/")]
-    Home,
-
-    #[at("/project/:id")]
-    Project { id: u64 },
-
-    #[at("/404")]
-    NotFound,
-}
 
 struct Client;
 impl Component for Client {
@@ -31,25 +18,13 @@ impl Component for Client {
 
     fn view(&self, _: &yew::Context<Self>) -> yew::Html {
         html! {
-            <BrowserRouter>
-                <div class="page-wrapper with-navbar">
-                    <Switch<Route> render={ Switch::render(switch) } />
-                </div>
-            </BrowserRouter>
-        }
-    }
-}
-
-fn switch(routes: &Route) -> Html {
-    match routes {
-        Route::Home => html! {
             <>
-                <NavBar />
-                <Home />
+                <div class="page-wrapper with-navbar">
+                    <NavBar />
+                    <Home />
+                </div>
             </>
-        },
-        Route::Project { id } => project::view(*id),
-        Route::NotFound => error::err_404(),
+        }
     }
 }
 

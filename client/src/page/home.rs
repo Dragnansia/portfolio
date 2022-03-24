@@ -1,76 +1,84 @@
-use crate::component::circle_anim::CircleAnim;
+use crate::{component::circle_anim::CircleAnim, page::project};
 use portfolio::project::Project;
 use reqwasm::http::Request;
 use yew::prelude::*;
 
-#[function_component(Home)]
-pub fn view() -> Html {
-    let projects: UseStateHandle<Vec<Project>> = use_state(|| vec![]);
-
-    {
-        let projects = projects.clone();
-        use_effect_with_deps(
-            move |_| {
-                wasm_bindgen_futures::spawn_local(async move {
-                    let fetch_projects: Vec<Project> = Request::get("/api/projects")
-                        .send()
-                        .await
-                        .unwrap()
-                        .json()
-                        .await
-                        .unwrap();
-
-                    projects.set(fetch_projects);
-                });
-
-                || ()
-            },
-            (),
-        );
-    }
-
-    html! {
-        <div class="snap-container">
-            <section id="home">
-                <CircleAnim />
-
-                { info() }
-            </section>
-
-            <section id="information">
-                { description() }
-            </section>
-
-            <section id="projects">
-                <ProjectsList projects={ (*projects).clone() } />
-            </section>
-        </div>
-    }
+pub enum Message {
+    ViewProject(u64),
+    ProjectList(Vec<Project>),
 }
 
-#[derive(Properties, PartialEq)]
-struct ProjectsListProps {
+pub struct Home {
     projects: Vec<Project>,
+    project_focus: Option<Project>,
 }
 
-#[function_component(ProjectsList)]
-fn projects(ProjectsListProps { projects }: &ProjectsListProps) -> Html {
-    projects.iter().map(|project| {
-            let url = format!("/project/{}", project.id);
+impl Component for Home {
+    type Message = Message;
+    type Properties = ();
+
+    fn create(_: &Context<Self>) -> Self {
+        Self {
+            projects: vec![],
+            project_focus: None,
+        }
+    }
+
+    fn update(&mut self, _: &Context<Self>, msg: Self::Message) -> bool {
+        match msg {
+            Message::ViewProject(id) => {
+                self.project_focus = self.projects.iter().find(|p| p.id == id).cloned();
+            }
+            Message::ProjectList(list) => {
+                self.projects = list;
+            }
+        }
+
+        true
+    }
+
+    fn view(&self, ctx: &Context<Self>) -> Html {
+        let lists: Html = self.projects.iter().map(|project| {
             let title = project.name.clone();
             let image = match project.images.get(0) {
                 Some(s) => s.clone(),
                 None => Default::default()
             };
 
+            let id = project.id;
+            let onclick = ctx.link().callback(move |_| Message::ViewProject(id));
+
             html! {
                 <div class="d-flex flex-wrap justify-content-center" data-toggle="tooltip" data-title={ title } style="overflow: unset;">
-                    <a href={ url } class="m-5 w-200 p-0">
+                    <a onclick={ onclick } href="#modal" class="m-5 w-200 p-0">
                         <img class="img-fluid rounded" alt="" src={ image.url.clone() } />
                     </a>
                 </div>
             }
-        }).collect()
+        }).collect();
+
+        html! {
+            <>
+                <div class="snap-container">
+                    <section id="home">
+                        <CircleAnim />
+
+                        { info() }
+                    </section>
+
+                    <section id="information">
+                        { description() }
+                    </section>
+
+                    <section id="projects">
+                        { lists }
+                    </section>
+                </div>
+
+                { project::view(self.project_focus.clone()) }
+            </>
+        }
+    }
 }
 
 fn info() -> Html {

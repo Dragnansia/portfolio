@@ -25,9 +25,9 @@ async fn main() -> io::Result<()> {
     std::env::set_var("RUST_LOG", "actix_web=info");
     env_logger::init();
 
-    let host = env::var("HOST").unwrap_or("0.0.0.0".into());
+    let host = env::var("HOST").unwrap_or_else(|_| "0.0.0.0".into());
     let port = env::var("PORT")
-        .unwrap_or("8000".into())
+        .unwrap_or_else(|_| "8000".into())
         .parse::<u16>()
         .unwrap();
 
@@ -45,6 +45,7 @@ async fn main() -> io::Result<()> {
             .app_data(Data::new(AppState { db: db.clone() }))
             .service(all_project)
             .service(project_info)
+            .service(Files::new("/", "./client/dist/").index_file("index.html"))
             .service(Files::new("/", "./client/dist/").index_file("index.html"))
     })
     .bind((host, port))?
