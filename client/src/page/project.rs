@@ -1,4 +1,4 @@
-use portfolio::project::Project;
+use portfolio::project::{Image, Project};
 use yew::prelude::*;
 
 /// Display project on HTML
@@ -7,9 +7,7 @@ pub fn view(project: Option<Project>) -> Html {
         <div class="modal modal-full ie-scroll-fix" id="modal" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
                 <div class="modal-content h-full">
-                    <a href="#" class="close" role="button" aria-label="Close">
-                        <span aria-hidden="true"></span>
-                    </a>
+                    <button class="close" data-dismiss="modal" type="button" aria-label="Close" />
 
                     <div class="container">
                         <div class="row">
@@ -40,7 +38,7 @@ pub fn project(ProjectViewProps { project }: &ProjectViewProps) -> Html {
                         <p class="text-center font-size-16 m-0 mb-5">{ project.name.clone() }</p>
                         <div></div>
                         <div class="d-flex justify-content-center">
-                            <a target="_blank" href="https://github.com/Dragnansia"><i style="color: #ddd" class="font-size-20 fa fa-github"></i></a>
+                            <a href="https://github.com/Dragnansia"><i style="color: #ddd" class="font-size-20 fa fa-github"></i></a>
                         </div>
                     </div>
                 </section>
@@ -50,7 +48,7 @@ pub fn project(ProjectViewProps { project }: &ProjectViewProps) -> Html {
                 </section>
 
                 <section id="photos">
-
+                    { images(project.images.clone()) }
                 </section>
             </>
         }
@@ -59,4 +57,15 @@ pub fn project(ProjectViewProps { project }: &ProjectViewProps) -> Html {
             <div class="lds-dual-ring" />
         }
     }
+}
+
+fn images(images: Vec<Image>) -> Html {
+    images
+        .iter()
+        .map(|i| {
+            html! {
+                <img src={ i.url.clone() } alt={ i.alt.clone() }/>
+            }
+        })
+        .collect()
 }

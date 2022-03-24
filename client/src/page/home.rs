@@ -1,4 +1,4 @@
-use crate::{component::circle_anim::CircleAnim, page::project};
+use crate::{bindings, component::circle_anim::CircleAnim, page::project};
 use portfolio::project::Project;
 use reqwasm::http::Request;
 use yew::prelude::*;
@@ -58,13 +58,16 @@ impl Component for Home {
             };
 
             let id = project.id;
-            let onclick = ctx.link().callback(move |_| Message::ViewProject(id));
+            let onclick = ctx.link().callback(move |_| {
+                bindings::toggle_modal("modal");
+                Message::ViewProject(id)
+            });
 
             html! {
-                <div class="d-flex flex-wrap justify-content-center" data-toggle="tooltip" data-title={ title } style="overflow: unset;">
-                    <a onclick={ onclick } href="#modal" class="m-5 w-200 p-0">
+                <div class="d-flex flex-wrap justify-content-center" style="overflow: unset;">
+                    <project onclick={ onclick } class="m-5 w-200 p-0" data-toggle="tooltip" data-title={ title } style="cursor:pointer;overflow:unset;" >
                         <img class="img-fluid rounded" alt="" src={ image.url.clone() } />
-                    </a>
+                    </project>
                 </div>
             }
         }).collect();
