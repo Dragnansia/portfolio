@@ -38,7 +38,9 @@ pub fn project(ProjectViewProps { project }: &ProjectViewProps) -> Html {
                         { images(project.images.clone()) }
                     </div>
                     <div class="d-flex justify-content-center">
-                        <a href="https://github.com/Dragnansia"><i style="color: #ddd" class="font-size-20 fa fa-github"></i></a>
+                        <a href="https://github.com/Dragnansia">
+                            <i style="color: #ddd" class="font-size-20 fa fa-github" />
+                        </a>
                     </div>
                 </div>
 

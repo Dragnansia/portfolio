@@ -25,7 +25,7 @@ impl Component for Home {
                 .unwrap()
                 .json()
                 .await
-                .unwrap();
+                .unwrap_or_default();
 
             Message::ProjectList(fetch_projects)
         });
@@ -65,7 +65,8 @@ impl Component for Home {
 
             html! {
                 <div class="d-flex flex-wrap justify-content-center" style="overflow: unset;">
-                    <project onclick={ onclick } class="m-5 w-200 p-0" data-toggle="tooltip" data-title={ title } style="cursor:pointer;overflow:unset;" >
+                    <project onclick={ onclick } class="m-5 w-200 p-0"
+                        data-toggle="tooltip" data-title={ title } style="cursor:pointer;overflow:unset;">
                         <img class="img-fluid rounded" alt="" src={ image.url.clone() } />
                     </project>
                 </div>
@@ -99,12 +100,16 @@ impl Component for Home {
 fn info() -> Html {
     html! {
         <div>
-            <p class="text-center font-size-24 mb-5">{ "Romuald Aucouturier" }</p>
-            <div></div>
+            <p class="text-center font-size-24 mb-5"> { "Romuald Aucouturier" } </p>
+            <div />
             <p class="text-center font-size-16 m-0 mb-5"> { "Software, video game Dev" } </p>
             <div class="d-flex justify-content-center">
-            <a href="https://github.com/Dragnansia"><i style="color: #ddd;" class="font-size-20 fa fa-github-alt"></i></a>
-            <a href="mailto:romuald.auc.pro@protonmail.com" class="ml-10"><i style="color: #ddd;" class="font-size-20 fa fa-inbox"></i></a>
+                <a href="https://github.com/Dragnansia">
+                    <i style="color: #ddd;" class="font-size-20 fa fa-github-alt" />
+                </a>
+                <a href="mailto:romuald.auc.pro@protonmail.com" class="ml-10">
+                    <i style="color: #ddd;" class="font-size-20 fa fa-inbox" />
+                </a>
             </div>
         </div>
     }
