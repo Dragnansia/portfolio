@@ -1,4 +1,4 @@
-use portfolio::project::{Image, Project};
+use portfolio::{image::Image, project::Project};
 use yew::prelude::*;
 
 /// Display project on HTML
