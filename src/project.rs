@@ -42,9 +42,10 @@ mod test {
         let json = r#"
             {
                 "id": 1000,
-                "title": "Json Project",
+                "name": "Json Project",
                 "description": "",
-                "images": []
+                "images": [],
+                "links": []
             }
         "#;
 
@@ -65,7 +66,7 @@ mod test {
 
         assert_eq!(
             serialize,
-            r#"{"id":1000,"title":"Project","description":"","images":[]}"#
+            r#"{"id":1000,"name":"Project","description":"","images":[],"links":[]}"#
         );
     }
 }
