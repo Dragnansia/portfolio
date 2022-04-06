@@ -1,4 +1,4 @@
-use portfolio::{image::Image, project::Project};
+use portfolio::{image::Image, link::LinkIcon, project::Project};
 use yew::prelude::*;
 
 /// Display project on HTML
@@ -30,6 +30,27 @@ pub struct ProjectViewProps {
 #[function_component(ProjectView)]
 pub fn project(ProjectViewProps { project }: &ProjectViewProps) -> Html {
     if let Some(project) = project {
+        let links: Html = project
+            .links
+            .iter()
+            .map(|link| match &link.icon {
+                LinkIcon::Image(l) => {
+                    html! {
+                        <a href={ link.url.clone() }>
+                            <img src={ l.clone() } alt="Image link" />
+                        </a>
+                    }
+                }
+                LinkIcon::FontAwesome(class) => {
+                    html! {
+                        <a href={ link.url.clone() }>
+                            <i style="color: #ddd" class={ class } />
+                        </a>
+                    }
+                }
+            })
+            .collect();
+
         html! {
             <div class="text-center">
                 <div class="mb-20">
@@ -38,9 +59,7 @@ pub fn project(ProjectViewProps { project }: &ProjectViewProps) -> Html {
                         { images(project.images.clone()) }
                     </div>
                     <div class="d-flex justify-content-center">
-                        <a href="https://github.com/Dragnansia">
-                            <i style="color: #ddd" class="font-size-20 fa fa-github" />
-                        </a>
+                        { links }
                     </div>
                 </div>
 
