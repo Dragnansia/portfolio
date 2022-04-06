@@ -36,15 +36,16 @@ pub fn project(ProjectViewProps { project }: &ProjectViewProps) -> Html {
             .map(|link| match &link.icon {
                 LinkIcon::Image(l) => {
                     html! {
-                        <a href={ link.url.clone() }>
+                        <a href={ link.url.clone() } style="text-decoration: none;">
                             <img src={ l.clone() } alt="Image link" />
                         </a>
                     }
                 }
                 LinkIcon::FontAwesome(class) => {
+                    let class = format!("font-size-20 {}", class);
                     html! {
-                        <a href={ link.url.clone() }>
-                            <i style="color: #ddd" class={ class } />
+                        <a href={ link.url.clone() } style="text-decoration: none;">
+                            <icon style="color: #ddd" class={ class } />
                         </a>
                     }
                 }

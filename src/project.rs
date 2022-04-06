@@ -1,9 +1,11 @@
 use crate::{image::Image, link::Link};
+use bson::oid::ObjectId;
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Deserialize, Serialize, Default, Clone)]
 pub struct Project {
-    pub id: u64,
+    #[serde(rename = "_id")]
+    pub id: ObjectId,
     pub name: String,
     pub description: String,
     pub images: Vec<Image>,
@@ -23,13 +25,13 @@ mod test {
     #[test]
     fn compare() {
         let p1 = Project {
-            id: 1000,
+            id: ObjectId::new(),
             name: "P1".into(),
             ..Default::default()
         };
 
         let p2 = Project {
-            id: 1001,
+            id: ObjectId::new(),
             name: "P2".into(),
             ..Default::default()
         };
@@ -41,7 +43,7 @@ mod test {
     fn deserialize() {
         let json = r#"
             {
-                "id": 1000,
+                "_id": ObjectId("624d94cc39e3ee54af9351e8"),
                 "name": "Json Project",
                 "description": "",
                 "images": [],
@@ -51,13 +53,13 @@ mod test {
 
         let project = serde_json::from_str::<Project>(json).unwrap();
 
-        assert_eq!(project.id, 1000u64);
+        assert_eq!(project.name, "Json Project".to_string());
     }
 
     #[test]
     fn serialize() {
         let project = Project {
-            id: 1000,
+            id: ObjectId::new(),
             name: "Project".into(),
             ..Default::default()
         };

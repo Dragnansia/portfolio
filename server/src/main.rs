@@ -10,7 +10,7 @@ use std::{env, io};
 ///
 /// Need to set `DB_URL` env variable to try connection
 async fn db_connection() -> Result<Client, Error> {
-    let db_url = env::var("DB_URL").unwrap_or_default();
+    let db_url = env::var("DB_URL").unwrap_or("mongodb://localhost:27017".into());
     let options = ClientOptions::parse(db_url).await?;
 
     Client::with_options(options)

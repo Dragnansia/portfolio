@@ -1,10 +1,11 @@
 use crate::{bindings, component::circle_anim::CircleAnim, page::project};
+use bson::oid::ObjectId;
 use portfolio::project::Project;
 use reqwasm::http::Request;
 use yew::prelude::*;
 
 pub enum Message {
-    ViewProject(u64),
+    ViewProject(ObjectId),
     ProjectList(Vec<Project>),
 }
 
@@ -25,7 +26,7 @@ impl Component for Home {
                 .unwrap()
                 .json()
                 .await
-                .unwrap_or_default();
+                .unwrap();
 
             Message::ProjectList(fetch_projects)
         });
@@ -60,7 +61,7 @@ impl Component for Home {
             let id = project.id;
             let onclick = ctx.link().callback(move |_| {
                 bindings::toggle_modal("modal");
-                Message::ViewProject(id)
+                Message::ViewProject( id)
             });
 
             html! {

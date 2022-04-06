@@ -20,6 +20,8 @@ pub async fn all_project(app: Data<AppState>) -> actix_web::Result<impl Responde
         Err(err) => return Err(actix_web::error::ErrorNotFound(err.to_string())),
     };
 
+    println!("{:?}", projects);
+
     Ok(Json(projects))
 }
 
