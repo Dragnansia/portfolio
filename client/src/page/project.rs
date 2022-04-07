@@ -77,7 +77,7 @@ fn images(images: Vec<Image>) -> Html {
         .iter()
         .map(|i| {
             html! {
-                <img src={ i.url.clone() } alt={ i.alt.clone() }/>
+                <img src={ i.data.clone() } alt={ i.alt.clone() }/>
             }
         })
         .collect()

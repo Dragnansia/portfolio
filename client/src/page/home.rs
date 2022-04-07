@@ -68,7 +68,7 @@ impl Component for Home {
                 <div class="d-flex flex-wrap justify-content-center" style="overflow: unset;">
                     <project onclick={ onclick } class="m-5 w-200 p-0"
                         data-toggle="tooltip" data-title={ title } style="cursor:pointer;overflow:unset;">
-                        <img class="img-fluid rounded" alt="" src={ image.url.clone() } />
+                        <img class="img-fluid rounded" alt="" src={ image.data.clone() } />
                     </project>
                 </div>
             }
