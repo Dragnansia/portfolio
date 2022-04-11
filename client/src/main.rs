@@ -18,12 +18,10 @@ impl Component for Client {
 
     fn view(&self, _: &yew::Context<Self>) -> yew::Html {
         html! {
-            <>
-                <div class="page-wrapper with-navbar">
-                    <NavBar />
-                    <Home />
-                </div>
-            </>
+            <div class="page-wrapper">
+                <NavBar />
+                <Home />
+            </div>
         }
     }
 }
