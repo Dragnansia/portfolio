@@ -2,7 +2,6 @@ mod bindings;
 mod component;
 mod page;
 
-use component::navbar::NavBar;
 use page::home::Home;
 use wasm_logger::Config;
 use yew::prelude::*;
@@ -19,7 +18,6 @@ impl Component for Client {
     fn view(&self, _: &yew::Context<Self>) -> yew::Html {
         html! {
             <div class="page-wrapper">
-                <NavBar />
                 <Home />
             </div>
         }
