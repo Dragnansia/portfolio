@@ -105,7 +105,7 @@ fn info() -> Html {
         <div>
             <p class="text-center font-size-24 mb-5"> { "Romuald Aucouturier" } </p>
             <div />
-            <p class="text-center font-size-16 m-0 mb-5"> { "Software, video game Dev" } </p>
+            <p class="text-center font-size-16 m-0 mb-5"> { "Développeur logiciels et jeux-vidéo" } </p>
             <div class="d-flex justify-content-center">
                 <a href="https://github.com/Dragnansia">
                     <i style="color: #ddd;" class="font-size-20 fa fa-github-alt" />
@@ -120,6 +120,25 @@ fn info() -> Html {
 
 fn description() -> Html {
     html! {
-        { "This is my full description for my portfolio" }
+        <div class="text-center w-600 p-20">
+            {
+                "Je suis un développeur de 21 ans, passionné
+                par les technologies et l'open source."
+            }
+            <br />
+            <br />
+            {
+                "Mes compétences ont étés aquises lors de la
+                création de projet scolaire et personnel comme
+                la création d'une application CLI qui permet
+                d'installer des dépendances de jeu pour linux,
+                comme Proton et autre en fonction de la
+                distribution, la création de mon portfolio
+                avec des nouvelles technos comme le WASM
+                et le langage Rust, ou des applications en
+                utilisant Qt, ou d'autres framework ou GUI.
+                Tous les projets peuvent être vus sur Github"
+            }
+        </div>
     }
 }

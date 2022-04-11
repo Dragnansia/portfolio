@@ -15,10 +15,10 @@ body {
 
   .snap-container {
     width: 100%;
-    height: calc(100% - var(--navbar-height));
+    height: 100%;
 
     position: relative;
-    top: var(--navbar-height);
+    top: 0;
 
     scroll-snap-type: y mandatory;
     overflow-y: scroll;
