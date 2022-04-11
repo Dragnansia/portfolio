@@ -51,28 +51,30 @@ impl Component for Home {
     }
 
     fn view(&self, ctx: &Context<Self>) -> Html {
-        let lists: Html = self.projects.iter().map(|project| {
-            let title = project.name.clone();
-            let image = match project.images.get(0) {
-                Some(s) => s.clone(),
-                None => Default::default()
-            };
+        let lists: Html = self
+            .projects
+            .iter()
+            .map(|project| {
+                let title = project.name.clone();
+                let id = project.id;
+                let onclick = ctx.link().callback(move |_| {
+                    bindings::toggle_modal("modal");
+                    Message::ViewProject(id)
+                });
 
-            let id = project.id;
-            let onclick = ctx.link().callback(move |_| {
-                bindings::toggle_modal("modal");
-                Message::ViewProject( id)
-            });
-
-            html! {
-                <div class="d-flex flex-wrap justify-content-center" style="overflow: unset;">
-                    <project onclick={ onclick } class="m-5 w-200 p-0"
-                        data-toggle="tooltip" data-title={ title } style="cursor:pointer;overflow:unset;">
-                        <img class="img-fluid rounded" alt="" src={ image.data.clone() } />
-                    </project>
-                </div>
-            }
-        }).collect();
+                html! {
+                    <div class="d-flex flex-wrap justify-content-center" style="overflow: unset;">
+                        <div class="card" style="max-width: 40rem;">
+                            <h2 class="card-title">{ title }</h2>
+                            <p class="text-muted">{ project.description.clone() }</p>
+                            <div class="text-right">
+                                <button onclick={ onclick } class="btn" type="button">{ "Lire plus" }</button>
+                            </div>
+                        </div>
+                    </div>
+                }
+            })
+            .collect();
 
         html! {
             <>
