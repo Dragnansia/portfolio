@@ -7,7 +7,9 @@ pub fn view(project: Option<Project>) -> Html {
         <div class="modal modal-full ie-scroll-fix" id="modal" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
                 <div class="modal-content h-full">
-                    <button class="close bg-danger" data-dismiss="modal" type="button" aria-label="Close" />
+                    <button class="close" data-dismiss="modal" type="button" aria-label="Close">
+                        <span aria-hidden="true">{ "x" }</span>
+                    </button>
 
                     <div class="container h-full">
                         <div class="row align-middle">
