@@ -27,16 +27,16 @@ impl Component for CircleAnim {
 
 fn random_li() -> Html {
     let size = random_number(30, 100);
-    let left = random_number(10, 90);
-    let anim_delay = random_number(0, 10);
+    let left = random_number(0, 100);
+    let anim_delay = random_number(0, 30);
     let anim_duration = random_number(5, 45);
 
     let style = format!(
-        "width:{size}px;height:{size}px;left:{}%;animation-delay:{}s;animation-duration:{}s",
-        left,
-        anim_delay,
-        anim_duration,
-        size = size
+        "width:{size}px;
+        height:{size}px;
+        left:{left}%;
+        animation-delay:{anim_delay}s;
+        animation-duration:{anim_duration}"
     );
 
     html! { <li style={ style.clone() } /> }
@@ -44,6 +44,9 @@ fn random_li() -> Html {
 
 fn random_number(min: i32, max: i32) -> i32 {
     let mut val = [0u8; 1];
-    getrandom::getrandom(&mut val).unwrap();
-    val[0] as i32 % max + min
+    if getrandom::getrandom(&mut val).is_err() {
+        min
+    } else {
+        val[0] as i32 % max + min
+    }
 }

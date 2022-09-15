@@ -25,11 +25,11 @@ async fn main() -> io::Result<()> {
     std::env::set_var("RUST_LOG", "actix_web=info");
     env_logger::init();
 
-    let host = env::var("HOST").unwrap_or_else(|_| "0.0.0.0".into());
+    let host = env::var("HOST").unwrap_or(String::from("0.0.0.0"));
     let port = env::var("PORT")
-        .unwrap_or_else(|_| "8000".into())
+        .unwrap_or_default()
         .parse::<u16>()
-        .unwrap();
+        .unwrap_or(8000);
 
     let db = match db_connection().await {
         Ok(db) => db.database("portfolio"),
